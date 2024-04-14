@@ -23,20 +23,20 @@ class PerevalAdded(models.Model):
     other_titles = models.TextField(verbose_name='other titles')
     connect = models.TextField(blank=True, null=True, verbose_name='connect')
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='add time')
-    user_id = models.ForeignKey('User', on_delete=models.PROTECT, verbose_name='user id')
-    coords_id = models.ForeignKey('Coords', on_delete=models.PROTECT, verbose_name='coords')
-    level_id = models.ForeignKey('Level', on_delete=models.PROTECT, verbose_name='level')
+    user = models.ForeignKey('User', on_delete=models.PROTECT, verbose_name='user id')
+    coords = models.ForeignKey('Coords', on_delete=models.PROTECT, verbose_name='coords')
+    level = models.ForeignKey('Level', on_delete=models.PROTECT, verbose_name='level')
     status = models.CharField(max_length=10, choices=STATUS, verbose_name='status', default='new')
 
 
 class Level(models.Model):
     LEVEL = [
-        ('1A', '1А'),
-             ('1B', '1Б'),
-             ('2A', '2А'),
-             ('2B', '2Б'),
-             ('3A', '3А'),
-             ('3B', '3Б')
+        ('1А', '1А'),   # 'А', 'Б' everywhere are russian
+        ('1Б', '1Б'),
+        ('2А', '2А'),
+        ('2Б', '2Б'),
+        ('3А', '3А'),
+        ('3Б', '3Б')
     ]
     winter = models.CharField(max_length=2, blank=True, null=True, choices=LEVEL, verbose_name='winter level')
     spring = models.CharField(max_length=2, blank=True, null=True, choices=LEVEL, verbose_name='spring level')
@@ -51,10 +51,6 @@ class Coords(models.Model):
 
 
 class Image(models.Model):
-    image_data = models.URLField(verbose_name='image')
+    data = models.URLField(verbose_name='image')
     title = models.CharField(max_length=255, verbose_name='image title')
-
-
-class PerevalImage(models.Model):
-    image_id = models.OneToOneField('Image', on_delete=models.CASCADE)
-    pereval_id = models.OneToOneField('PerevalAdded', on_delete=models.CASCADE)
+    pereval = models.ForeignKey('PerevalAdded', on_delete=models.CASCADE, related_name='images')
