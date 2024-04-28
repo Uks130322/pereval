@@ -10,6 +10,7 @@ class PerevalViewSet(viewsets.ModelViewSet):
     queryset = PerevalAdded.objects.all().order_by('-add_time')
     serializer_class = PerevalSerializer
     permission_classes = [permissions.AllowAny]
+    filterset_fields = ['user__email']
 
     def create(self, request, *args, **kwargs):
         serializer = PerevalSerializer(data=request.data)
@@ -49,29 +50,29 @@ class PerevalViewSet(viewsets.ModelViewSet):
                     serializer.save()
                     self.perform_update(serializer)
                     return Response({
-                        'status': 1,
+                        'state': 1,
                         'message': ''
                     })
             if status.HTTP_400_BAD_REQUEST:
                 return Response({
-                    'status': 0,
+                    'state': 0,
                     'message': 'Bad Request'
                 })
 
             elif status.HTTP_500_INTERNAL_SERVER_ERROR:
                 return Response({
-                    'status': 0,
+                    'state': 0,
                     'message': 'Ошибка при подключении к базе данных'
                 })
 
-        except IntegrityError or AssertionError:
+        except (IntegrityError, AssertionError):
             return Response({
-                'status': 0,
+                'state': 0,
                 'message': 'Изменение данных пользователя невозможно'
             })
 
     def partial_update(self, request, *args, **kwargs):
         return Response({
-            'status': 0,
+            'state': 0,
             'message': 'Sorry, this method is not supported. Try PUT instead'
         })

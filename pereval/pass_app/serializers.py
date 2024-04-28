@@ -27,11 +27,9 @@ class UserSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
         changed_user, created = User.objects.get_or_create(**validated_data)
         if instance == changed_user:
             print(validated_data)
-            # pass
             return instance
         else:
             print('ELSE')
-            # return instance
             raise AssertionError("You can not change user's data")
 
 
