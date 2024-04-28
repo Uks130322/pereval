@@ -7,7 +7,14 @@ from rest_framework import serializers
 class UserSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'fam', 'name', 'otc', 'phone']
+        fields = [
+            'id',
+            'email',
+            'fam',
+            'name',
+            'otc',
+            'phone'
+        ]
         extra_kwargs = {
             'id': {'read_only': True},
         }
@@ -16,17 +23,37 @@ class UserSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
         user, created = User.objects.get_or_create(**validated_data)
         return user
 
+    def update(self, instance, validated_data):
+        changed_user, created = User.objects.get_or_create(**validated_data)
+        if instance == changed_user:
+            print(validated_data)
+            return instance
+        else:
+            print('ELSE')
+            raise AssertionError("You can not change user's data")
+
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
-        fields = ['id', 'winter', 'spring', 'summer', 'autumn']
+        fields = [
+            'id',
+            'winter',
+            'spring',
+            'summer',
+            'autumn'
+        ]
 
 
 class CoordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coords
-        fields = ['id', 'latitude', 'longitude', 'height']
+        fields = [
+            'id',
+            'latitude',
+            'longitude',
+            'height'
+        ]
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -43,9 +70,19 @@ class PerevalSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = PerevalAdded
-        fields = ['id', 'status', 'beauty_title', 'title', 'other_titles', 'connect', 'add_time',
-                  'user', 'coords', 'level', 'images']
+        fields = [
+            'id',
+            'status',
+            'beauty_title',
+            'title',
+            'other_titles',
+            'connect',
+            'add_time',
+            'user',
+            'coords',
+            'level',
+            'images'
+        ]
         extra_kwargs = {
             'id': {'read_only': True},
-            'status': {'read_only': True},
         }

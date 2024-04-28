@@ -4,7 +4,7 @@ from rest_framework import routers
 from pass_app import views
 
 router = routers.DefaultRouter()
-router.register(r'pereval', views.PerevalViewSet)
+router.register(r'pereval', views.PerevalViewSet, basename='pereval')
 
 urlpatterns = [
     path('', include(router.urls)),
