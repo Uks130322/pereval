@@ -1,3 +1,5 @@
 /venv/
 .idea
 /pereval/.env
+pereval/pass_app/__pycache__/
+pereval/pereval/__pycache__/
