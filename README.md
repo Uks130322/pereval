@@ -88,4 +88,13 @@ message:
 	сообщение при ошибке либо пустая строка.
 
 
+ #### Документация сгенерирована с помощью пакета drf-yasg
+ 	/swagger/ - schema swagger-ui
+  	/swagger<format>/ - schema json
+   	/redoc/ - schema redoc  
+
+     
+![Screenshot_2](https://github.com/Uks130322/pereval/assets/101522861/f322c3ba-308f-4255-a703-730e366357ee)
+
+
 ![Screenshot_1](https://github.com/Uks130322/pereval/assets/101522861/14dbd9b5-8d63-40a1-9e05-207e775730b8)
