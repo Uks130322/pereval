@@ -7,6 +7,8 @@ from pass_app.serializers import PerevalSerializer
 
 
 class PerevalViewSet(viewsets.ModelViewSet):
+    """Endpoint for PerevalAdded model"""
+
     queryset = PerevalAdded.objects.all().order_by('-add_time')
     serializer_class = PerevalSerializer
     permission_classes = [permissions.AllowAny]
@@ -72,6 +74,8 @@ class PerevalViewSet(viewsets.ModelViewSet):
             })
 
     def partial_update(self, request, *args, **kwargs):
+        """Prohibited for now"""
+
         return Response({
             'state': 0,
             'message': 'Sorry, this method is not supported. Try PUT instead'

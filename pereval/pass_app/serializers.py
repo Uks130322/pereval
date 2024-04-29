@@ -29,7 +29,6 @@ class UserSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
             print(validated_data)
             return instance
         else:
-            print('ELSE')
             raise AssertionError("You can not change user's data")
 
 
